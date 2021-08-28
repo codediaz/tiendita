@@ -12,9 +12,9 @@ function obtenerFacturas( filtroFactura ) {
             filtro = { codigo: filtroFactura }
         }
         model.find( filtro )
-            .populate('ref_cliente')
-            .populate('ref_empleado')
-            .populate('ref_factura_detalle.ref_producto')
+            .populate('ref_cliente', '-cedula -ref_ciudad ')
+            .populate('ref_empleado', '-cedula -clave -usuario ')
+            .populate('ref_factura_detalle.ref_producto', '-ref_proveedor')
             .exec((error, data) => {
                 if (error) {
                     reject(error)
